@@ -7,21 +7,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DonationManager.Models
 {
-    [Table("Charities")]
-    public class Charity
+    [Table("Persons")]
+    public class Person
     {
         [Key]
         public int ID { get; set; }
         
-        public string Name { get; set; }
-        public string OfficialName { get; set; }
-        public string PreferredMethod { get; set; }
-        public string Details { get; set; }
-        public string Type { get; set; }
-        public string Notes { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
         
         //[ForeignKey("Users.Id")]
         //public int UserID { get; set; }
-
     }
 }

@@ -7,5 +7,6 @@
     [Date] DATE NOT NULL, 
     [Amount] MONEY NOT NULL, 
     [Note] NVARCHAR(MAX) NULL, 
-    [Method] NVARCHAR(50) NULL
+    [Method] NVARCHAR(50) NULL, 
+    [UserID] NCHAR(10) NULL
 )

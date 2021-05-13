@@ -63,5 +63,6 @@
     <Build Include="Donations.sql" />
     <Build Include="Cause.sql" />
     <Build Include="CharitiesPersonsConnection.sql" />
+    <Build Include="Users.sql" />
   </ItemGroup>
 </Project>
