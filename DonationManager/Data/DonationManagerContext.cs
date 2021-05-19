@@ -22,5 +22,7 @@ namespace DonationManager.Data
         public System.Data.Entity.DbSet<DonationManager.Models.Person> People { get; set; }
 
         public System.Data.Entity.DbSet<DonationManager.Models.Charity> Charities { get; set; }
+
+        public System.Data.Entity.DbSet<DonationManager.Models.Donation> Donations { get; set; }
     }
 }

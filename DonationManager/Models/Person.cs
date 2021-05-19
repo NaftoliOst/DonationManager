@@ -17,8 +17,10 @@ namespace DonationManager.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public ICollection<Donation> Donations { get; set; }
+
+
         
-        //[ForeignKey("Users.Id")]
-        //public int UserID { get; set; }
     }
 }
