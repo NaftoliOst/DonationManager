@@ -13,11 +13,14 @@ namespace DonationManager.Models
         [Key]
         public int ID { get; set; }
         
+        [Required]
         public string Name { get; set; }
+        [Required]
+        public string Type { get; set; }
+
         public string OfficialName { get; set; }
         public string PreferredMethod { get; set; }
         public string Details { get; set; }
-        public string Type { get; set; }
         public string Notes { get; set; }
 
         public ICollection<Donation> Donations { get; set; }
