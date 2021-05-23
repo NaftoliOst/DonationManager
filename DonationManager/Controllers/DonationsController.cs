@@ -43,6 +43,7 @@ namespace DonationManager.Controllers
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name");
             ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName");
             return View();
+
         }
 
         // POST: Donations/Create

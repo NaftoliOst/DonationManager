@@ -4,31 +4,24 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h1>Charities</h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { } ,new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OfficialName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PreferredMethod)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Details)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Type)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
+
         <th></th>
     </tr>
 
@@ -38,24 +31,16 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OfficialName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PreferredMethod)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Details)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @*@Html.ActionLink("Donations", "Index", "Donations", new { id = item.ID /* TODO - insert this charity ID and add controler method */ }, new { @class = "btn btn-default" })*@
+
+            @*@Html.ActionLink("Details", "Details", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-secondary" })*@
+            @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
         </td>
     </tr>
 }
