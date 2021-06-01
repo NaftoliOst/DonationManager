@@ -22,7 +22,6 @@
         <div class="form-group col-md-8">
             @Html.LabelFor(model => model.OfficialName, "Official Name")
             @Html.EditorFor(model => model.OfficialName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Registered name of the Charity" } })
-            @*@Html.ValidationMessageFor(model => model.OfficialName, "", new { @class = "text-danger" })*@
         </div>
     </div>
 
@@ -49,28 +48,25 @@
                 <option value="Poverty Relief">Poverty Relief</option>
                 <option value="Religious">Religious</option>
             </datalist>
-            @*@Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-md-8">
             @Html.LabelFor(model => model.Details)
             @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "What does this charity do?" } })
-            @*@Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })*@
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.PreferredMethod, "Prefered Payment Method")
-            <select name="PreferedMethod" id="PreferedMethod" class="form-control">
+            <select name="PreferredMethod" id="PreferredMethod" class="form-control">
                 <option hidden disabled selected value=null> -- Please Select --</option>
                 <option value="Card">Card</option>
                 <option value="Bank Transfer">Bank Transfer</option>
-                <option value="Carity Voucher">Charity Voucher</option>
-                <option value="Carity Transfer">Carity Transfer</option>
+                <option value="Charity Voucher">Charity Voucher</option>
+                <option value="Charity Transfer">Charity Transfer</option>
                 <option value="Cheque">Cheque</option>
                 <option value="Cash">Cash</option>
             </select>
-            @*@Html.EditorFor(model => model.PreferredMethod, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.ValidationMessageFor(model => model.PreferredMethod, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -81,9 +77,7 @@
         @*@Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control", @placeholder = "What's special about this cause to you?" } })*@
         @*@Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })*@
     </div>
-    <div class="form-group" >
-        
-    </div>
+
 
     <div class="form-group">
         @Html.ActionLink("Discard", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
