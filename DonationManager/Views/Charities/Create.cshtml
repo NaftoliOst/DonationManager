@@ -16,12 +16,12 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.Name)
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name of the Charity" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-md-8">
             @Html.LabelFor(model => model.OfficialName, "Official Name")
-            @Html.EditorFor(model => model.OfficialName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.OfficialName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Registered name of the Charity" } })
             @*@Html.ValidationMessageFor(model => model.OfficialName, "", new { @class = "text-danger" })*@
         </div>
     </div>
@@ -29,27 +29,60 @@
     <div class="form-row">
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.Type, "Category")
-            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
-            @*@Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })*@
+            <select name="Type" id="Type" class="form-control" required>
+                <option hidden disabled selected value=null> -- Please Select --</option>
+                <option value="Educational Institution">Educational Institution</option>
+                <option value="Youth Program">Youth Program</option>
+                <option value="Medical Organisation">Medical Organisation</option>
+                <option value="Community Service">Community Service</option>
+                <option value="Poverty Relief">Poverty Relief</option>
+                <option value="Religious">Religious</option>
+                <option value="Other">Other</option>
+
+            </select>
+            <input name="Type2" value="Other" list="TypeOther" class="form-control" id="Type2" hidden />
+            <datalist id="TypeOther">
+                <option value="Educational Institution">Educational Institution</option>
+                <option value="Youth Program">Youth Program</option>
+                <option value="Medical Organisation">Medical Organisation</option>
+                <option value="Community Service">Community Service</option>
+                <option value="Poverty Relief">Poverty Relief</option>
+                <option value="Religious">Religious</option>
+            </datalist>
+            @*@Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
         </div>
         <div class="form-group col-md-8">
             @Html.LabelFor(model => model.Details)
-            @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "What does this charity do?" } })
             @*@Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })*@
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.PreferredMethod, "Prefered Payment Method")
-            @Html.EditorFor(model => model.PreferredMethod, new { htmlAttributes = new { @class = "form-control" } })
+            <select name="PreferedMethod" id="PreferedMethod" class="form-control">
+                <option hidden disabled selected value=null> -- Please Select --</option>
+                <option value="Card">Card</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Carity Voucher">Charity Voucher</option>
+                <option value="Carity Transfer">Carity Transfer</option>
+                <option value="Cheque">Cheque</option>
+                <option value="Cash">Cash</option>
+            </select>
+            @*@Html.EditorFor(model => model.PreferredMethod, new { htmlAttributes = new { @class = "form-control" } })*@
             @Html.ValidationMessageFor(model => model.PreferredMethod, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Notes)
-        @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+        <textarea name="Notes" id="Notes" class="form-control" rows="3" placeholder="What's special about this cause to you?"></textarea>
+        @*@Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control", @placeholder = "What's special about this cause to you?" } })*@
         @*@Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })*@
+    </div>
+    <div class="form-group" >
+        
     </div>
 
     <div class="form-group">
@@ -61,4 +94,39 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
 }
+<script>
+    document.getElementsByName("Name")[0].addEventListener('change', function () {
+        var officialNameTextbox = document.getElementById("OfficialName");
+        officialNameTextbox.value = this.value;
+    });
+
+    document.getElementsByName("Type")[0].addEventListener('change', function () {
+        var detailsTextbox = document.getElementById("Details");
+        var notesTextbox = document.getElementById("Notes");
+        if (this.selectedIndex < 5) {
+            var insertWord = this.value.substring(this.value.indexOf(" ")).toLowerCase();
+            detailsTextbox.placeholder = "What does this" + insertWord + " do?";
+            notesTextbox.placeholder = "What's special about this" + insertWord + " to you?";
+        } else {
+            detailsTextbox.placeholder = "What does this charity do?";
+            notesTextbox.placeholder = "What's special about this cause to you?";
+        }
+    });
+    //document.getElementById("Type").addEventListener("change", function () {
+    //    document.getElementById("Type2").hidden = false;
+    //    document.getElementById("Type").hidden = true; 
+    //    document.getElementById("Type2").setAttribute(name, "Type");
+    //    document.getElementById("Type").setAttribute(name, "Type2");
+           
+
+    //})
+
+    //document.getElementById("Type2").addEventListener("change", function () {
+    //    document.getElementById("Type").hidden = false;
+    //    document.getElementById("Type").setAttribute(name, "Type");
+    //    this.hidden = true;
+    //    this.setAttribute(name, "Type2");
+    //})
+</script>
