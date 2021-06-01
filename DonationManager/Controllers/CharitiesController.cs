@@ -53,7 +53,7 @@ namespace DonationManager.Controllers
             {
                 db.Charities.Add(charity);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + charity.ID);
             }
 
             return View(charity);
@@ -85,7 +85,7 @@ namespace DonationManager.Controllers
             {
                 db.Entry(charity).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details/" + charity.ID);
             }
             return View(charity);
         }
