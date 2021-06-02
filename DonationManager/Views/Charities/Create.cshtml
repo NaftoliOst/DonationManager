@@ -79,7 +79,7 @@
 
     <div class="form-group">
         @Html.ActionLink("Discard", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
-        <input type="submit" value="Save" class="btn btn-primary" />
+        <input type="submit" id="save" value="Save" class="btn btn-primary" onclick="saveClicked()" />
     </div>
 }
 
@@ -89,6 +89,9 @@
 
 }
 <script>
+    function saveClicked() {
+        document.getElementById("save").setAttribute("class", "btn btn-primary disabled");
+    }
     document.getElementsByName("Name")[0].addEventListener('input', function () {
         var officialNameTextbox = document.getElementById("OfficialName");
         officialNameTextbox.value = this.value;
