@@ -74,8 +74,6 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Notes)
         <textarea name="Notes" id="Notes" class="form-control" rows="3" placeholder="What's special about this cause to you?"></textarea>
-        @*@Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control", @placeholder = "What's special about this cause to you?" } })*@
-        @*@Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })*@
     </div>
 
 
@@ -91,7 +89,7 @@
 
 }
 <script>
-    document.getElementsByName("Name")[0].addEventListener('change', function () {
+    document.getElementsByName("Name")[0].addEventListener('input', function () {
         var officialNameTextbox = document.getElementById("OfficialName");
         officialNameTextbox.value = this.value;
     });
@@ -123,4 +121,6 @@
     //    this.hidden = true;
     //    this.setAttribute(name, "Type2");
     //})
+
+    
 </script>
