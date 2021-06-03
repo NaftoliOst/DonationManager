@@ -26,7 +26,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -37,12 +37,15 @@
             @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
-            @*@Html.ActionLink("Donations", "Index", "Donations", new { id = item.ID /* TODO - insert this charity ID and add controler method */ }, new { @class = "btn btn-default" })*@
 
-            @*@Html.ActionLink("Details", "Details", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-secondary" })*@
             @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
         </td>
     </tr>
 }
 
 </table>
+<script>
+    function detailsPage(pageId) {
+        window.location.assign(window.location.pathname + "/details/" + pageId);
+    }
+</script>
