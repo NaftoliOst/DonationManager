@@ -7,7 +7,7 @@
 <h1>Charities</h1>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { } ,new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
 </p>
 <table class="table table-hover">
     <tr>
@@ -26,26 +26,25 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Details)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-
-            @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
-        </td>
-    </tr>
+<tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Details)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Type)
+    </td>
+    <td>
+        @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
+    </td>
+</tr>
 }
 
 </table>
 <script>
-    function detailsPage(pageId) {
-        window.location.assign(window.location.pathname + "/details/" + pageId);
+    function detailsPage(itemID) {
+        window.location.assign( "/charities/details/" + itemID);        
     }
 </script>
