@@ -3,64 +3,77 @@
 @{
     ViewBag.Title = "Details";
 }
+<br />
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">@Model.Name</h1>
+        @{
+            if (Model.Name != Model.OfficialName)
+            {
+                <h4 class="card-subtitle">@Model.OfficialName</h4>
+            }
+        }
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Category:
+                    </dt>
+                    <dd>
+                        @Model.Type
+                    </dd>
+                </dl>
+            </div>
 
-<h2>Details</h2>
+            @{
+                if (Model.Details != null)
+                {
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Details:
+                            </dt>
+                            <dd>
+                                @Model.Details
+                            </dd>
+                        </dl>
+                    </div>
+                }
+            }
 
-<div>
-    <h4>Charity</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        </div>
+        <dl class="dl-horizontal">
+            @{
+                if (Model.PreferredMethod != null)
+                {
+                    <dt>
+                        Preferred Payment Method:
+                    </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                    <dd>
+                        @Html.DisplayFor(model => model.PreferredMethod)
+                    </dd>
+                }
+                if (Model.Notes != null)
+                {
+                    <dt>
+                        Notes:
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.OfficialName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OfficialName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PreferredMethod)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PreferredMethod)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Details)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Details)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-
-    </dl>
+                    <dd>
+                        @Html.DisplayFor(model => model.Notes)
+                    </dd>
+                }
+            }
+        </dl>
+        <div class="text-right">  @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-outline-warning" })</div>
+    </div>
+    <div class="card-footer">
+        @Html.ActionLink("All Charities", "index", new { }, new { @class="btn btn-outline-secondary"})
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<br />
+@Html.ActionLink("New Donation", "create", "donations", new { }, new { @class="btn btn-primary btn-lg btn-block"})
+<br />
