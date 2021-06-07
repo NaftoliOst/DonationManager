@@ -3,15 +3,20 @@
 @{
     ViewBag.Title = "Create";
 }
-
-<h1>New Charity</h1>
-
-
-@using (Html.BeginForm())
+@if (!ViewData.ContainsKey("isModal"))
 {
+    <h1>New Charity</h1>
+    <hr />
+}
+
+
+
+@using (Html.BeginForm("Create", "Charities"))
+{
+
     @Html.AntiForgeryToken()
 
-    <hr />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -77,8 +82,18 @@
     </div>
 
 
-    <div class="form-group">
-        @Html.ActionLink("Discard", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" })
+
+
+    <div class="form-group modal-footer">
+        @{ if (ViewData.ContainsKey("isModal"))
+            {
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            }
+            else
+            {
+                @Html.ActionLink("Discard", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" });
+            }}
+
         <input type="submit" id="save" value="Save" class="btn btn-primary" onclick="saveClicked()" />
     </div>
 }
@@ -111,10 +126,10 @@
     });
     //document.getElementById("Type").addEventListener("change", function () {
     //    document.getElementById("Type2").hidden = false;
-    //    document.getElementById("Type").hidden = true; 
+    //    document.getElementById("Type").hidden = true;
     //    document.getElementById("Type2").setAttribute(name, "Type");
     //    document.getElementById("Type").setAttribute(name, "Type2");
-           
+
 
     //})
 
@@ -125,5 +140,5 @@
     //    this.setAttribute(name, "Type2");
     //})
 
-    
+
 </script>

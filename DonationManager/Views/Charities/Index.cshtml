@@ -6,9 +6,12 @@
 
 <h1>Charities</h1>
 
-<p>
-    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary" })
-</p>
+<div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+        New Charity
+    </button>
+</div>
+<br />
 <table class="table table-hover">
     <tr>
         <th>
@@ -25,26 +28,51 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Details)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Type)
-    </td>
-    <td>
-        @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
-    </td>
-</tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
+            </td>
+        </tr>
+    }
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create New Charity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div class="container">
+                    @{Html.RenderPartial("Create", new DonationManager.Models.Charity(), new ViewDataDictionary { { "isModal", true } });}
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
 <script>
     function detailsPage(itemID) {
-        window.location.assign( "/charities/details/" + itemID);        
+        window.location.assign("/charities/details/" + itemID);
     }
 </script>
