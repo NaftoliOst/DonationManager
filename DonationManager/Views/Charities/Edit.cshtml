@@ -7,7 +7,7 @@
 <h2>Edit @Model.Name</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
 
@@ -71,11 +71,36 @@
 
     <div class="form-group">
         @Html.ActionLink("Discard Changes", "Details", new { id = Model.ID }, htmlAttributes: new { @class = "btn btn-secondary" })
-        <input type="submit" id="Save" value="Save Changes" class="btn btn-primary" disabled/>
-        @Html.ActionLink("Delete Charity", "Delete", new { id = Model.ID }, htmlAttributes: new { @class = "btn btn-danger" })
+        <input type="submit" id="Save" value="Save Changes" class="btn btn-primary" disabled />
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">
+            Delete Charity
+        </button>
     </div>
-
 }
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Delete @Model.Name?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the charity "@Model.Name" with all its records?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                @using (Html.BeginForm("Delete", "Charities", new { id = Model.ID }))
+                {@Html.AntiForgeryToken()
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section Scripts {
@@ -91,7 +116,7 @@
         var officialNameTextbox = document.getElementById("OfficialName");
         officialNameTextbox.value = this.value;
     });
-    
+
     function UpdatePlaceholders() {
         var type = document.getElementById("Type");
         var detailsTextbox = document.getElementById("Details");
