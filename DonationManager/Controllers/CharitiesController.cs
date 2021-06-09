@@ -16,9 +16,26 @@ namespace DonationManager.Controllers
         private DonationManagerContext db = new DonationManagerContext();
 
         // GET: Charities
-        public ActionResult Index()
+        public ActionResult Index(string searchTerm)
         {
-            return View(db.Charities.ToList());
+            ViewBag.noResults = false;
+            var charities = from c in db.Charities select c;
+            if (!String.IsNullOrEmpty(searchTerm))
+            {
+                charities = charities.Where(c => c.Name.Contains(searchTerm)
+                || c.OfficialName.Contains(searchTerm)
+                || c.Details.Contains(searchTerm)
+                || c.Type.Contains(searchTerm)
+                || c.Notes.Contains(searchTerm));
+                if (charities.Count() == 0)
+                {
+                    ViewBag.noResults = true;
+                }
+            }
+            
+            charities = charities.OrderBy(c => c.Name);
+
+            return View(charities.ToList());
         }
 
         // GET: Charities/Details/5

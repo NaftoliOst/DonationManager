@@ -6,7 +6,12 @@
 
 <h1>Charities</h1>
 
-<div>
+<div class="btn-toolbar justify-content-between">
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder="Search" });
+        <input type="submit" hidden />
+    }
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
         New Charity
     </button>
@@ -47,6 +52,17 @@
     }
 </table>
 
+@{
+    if (ViewBag.noResults)
+    {
+        <hr />
+        <br />
+        <br />
+        <h5 class="text-muted text-center">Oops... looks like nothing matched your search.</h5>
+        <h5 class="text-muted text-center">Try searching something else or create a new charity.</h5>
+
+    }
+}
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -63,10 +79,6 @@
                     @{Html.RenderPartial("Create", new DonationManager.Models.Charity(), new ViewDataDictionary { { "isModal", true } });}
                 </div>
             </div>
-            @*<div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>*@
         </div>
     </div>
 </div>
