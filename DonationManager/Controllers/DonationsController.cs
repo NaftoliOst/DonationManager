@@ -22,6 +22,17 @@ namespace DonationManager.Controllers
             return View(donations.ToList());
         }
 
+        // GET: Donations Parial Index
+        
+        public PartialViewResult PartialIndex(int id)
+        {
+            var donations = from d in db.Donations select d;  
+            donations = donations.Include(d => d.Charity).Include(d => d.Person);
+            donations = donations.Where(d => d.Charity.ID.Equals(id));
+            donations = donations.OrderByDescending(d => d.Date);
+            return PartialView(donations.ToList());
+        }
+
         // GET: Donations/Details/5
         public ActionResult Details(int? id)
         {

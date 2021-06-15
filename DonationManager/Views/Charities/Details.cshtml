@@ -71,9 +71,14 @@
         <div class="text-right">  @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-outline-warning" })</div>
     </div>
     <div class="card-footer">
-        @Html.ActionLink("All Charities", "index", new { }, new { @class="btn btn-outline-secondary"})
+        @Html.ActionLink("All Charities", "index", new { }, new { @class = "btn btn-outline-secondary" })
     </div>
 </div>
 <br />
-@Html.ActionLink("New Donation", "create", "donations", new { }, new { @class="btn btn-primary btn-lg btn-block"})
+@Html.ActionLink("New Donation", "create", "donations", new { }, new { @class = "btn btn-primary btn-lg btn-block" })
 <br />
+@{
+                Html.RenderAction("PartialIndex", "Donations", new { id = Model.ID });
+             
+}
+@*@Html.Partial("~/Views/Donations/_PartialIndex.cshtml", Model)*@
