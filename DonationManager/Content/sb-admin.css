@@ -4443,10 +4443,13 @@ input[type="button"].btn-block {
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 950px) {
     .navbar-expand-md {
         flex-flow: row nowrap;
         justify-content: flex-start;
+    }
+    #sidebarToggle{
+       /* display:none;*/
     }
 
         .navbar-expand-md .navbar-nav {
@@ -11003,6 +11006,9 @@ a:focus {
 
 .topbar {
     height: 4.375rem;
+    margin-left: 104px;
+    position: fixed !important;
+    width: -webkit-fill-available;
 }
 
     .topbar #sidebarToggleTop {
@@ -11158,7 +11164,12 @@ a:focus {
 
 .sidebar {
     width: 6.5rem;
+    height: 100%;
     min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
 }
 
     .sidebar .nav-item {
@@ -11271,8 +11282,8 @@ a:focus {
         }
 
     .sidebar.toggled {
-        width: 0 !important;
-        overflow: hidden;
+       /* width: 0 !important;
+        overflow: hidden;*/
     }
 
         .sidebar.toggled #sidebarToggle::after {
@@ -11344,9 +11355,12 @@ a:focus {
             color: rgba(255, 255, 255, 0.5);
         }
 
-@media (min-width: 768px) {
+@media (min-width: 950px) {
     .sidebar {
         width: 14rem !important;
+    }
+    .topbar{
+        margin-left: 225px !important;
     }
 
         .sidebar .nav-item .collapse {
@@ -12220,4 +12234,7 @@ footer.sticky-footer {
 
 body.sidebar-toggled footer.sticky-footer {
     width: 100%;
+}
+body.sidebar-toggled .topbar, body.sidebar-toggled #page-content {
+    margin-left: 104px !important;
 }
