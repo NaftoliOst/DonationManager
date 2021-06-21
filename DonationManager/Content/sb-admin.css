@@ -11008,6 +11008,7 @@ a:focus {
     height: 4.375rem;
     margin-left: 104px;
     position: fixed !important;
+    z-index:1030;
     width: -webkit-fill-available;
 }
 

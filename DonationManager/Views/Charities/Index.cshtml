@@ -3,55 +3,59 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="card shadow">
+    <div class="card-header">
+        <div class="btn-toolbar justify-content-between">
+            <h1>Charities</h1>
+            @*@using (Html.BeginForm())
+        {
+            @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder = "Search" });
+            <input type="submit" hidden />
+        }*@
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                New Charity
+            </button>
+        </div>
+    </div>
+    
 
-<h1>Charities</h1>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
 
-<div class="btn-toolbar justify-content-between">    
-    @using (Html.BeginForm())
-    {
-        @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder="Search" });
-        <input type="submit" hidden />
-    }
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
-        New Charity
-    </button>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Details)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
-<br />
-<table class="table table-hover">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Details)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
-            </td>
-        </tr>
-    }
-</table>
-
 @{
     if (ViewBag.noResults)
     {
@@ -80,8 +84,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </div></div>
+
 
 <script>
     function detailsPage(itemID) {

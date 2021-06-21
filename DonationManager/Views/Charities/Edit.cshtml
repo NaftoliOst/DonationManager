@@ -3,82 +3,85 @@
 @{
     ViewBag.Title = "Edit";
 }
+<div class="card shadow">
+    <div class="card-header"><h2>Edit @Model.Name</h2></div>
+    <div class="card-body">
 
-<h2>Edit @Model.Name</h2>
+        @using (Html.BeginForm("Edit","charities",Model.ID,FormMethod.Post,htmlAttributes: new { @id="editor" }))
+        {
+            @Html.AntiForgeryToken()
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+            
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Name)
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name of the Charity" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-8">
+                    @Html.LabelFor(model => model.OfficialName, "Official Name")
+                    @Html.EditorFor(model => model.OfficialName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Registered name of the Charity" } })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Type, "Category")
+                    <select name="Type" id="Type" class="form-control" required>
+                        <option hidden disabled value=null> -- Please Select --</option>
+                        <option id="Educational Institution" value="Educational Institution">Educational Institution</option>
+                        <option id="Youth Program" value="Youth Program">Youth Program</option>
+                        <option id="Medical Organisation" value="Medical Organisation">Medical Organisation</option>
+                        <option id="Community Service" value="Community Service">Community Service</option>
+                        <option id="Poverty Relief" value="Poverty Relief">Poverty Relief</option>
+                        <option id="Religious" value="Religious">Religious</option>
+                        <option id="Other" value="Other">Other</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group col-md-8">
+                    @Html.LabelFor(model => model.Details)
+                    @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "What does this charity do?" } })
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.PreferredMethod, "Preferred Payment Method")
+                    <select name="PreferredMethod" id="PreferredMethod" class="form-control">
+                        <option selected hidden disabled value=null> -- Please Select --</option>
+                        <option id="Card" value="Card">Card</option>
+                        <option id="Bank Transfer" value="Bank Transfer">Bank Transfer</option>
+                        <option id="Charity Voucher" value="Charity Voucher">Charity Voucher</option>
+                        <option id="Charity Transfer" value="Charity Transfer">Charity Transfer</option>
+                        <option id="Cheque" value="Cheque">Cheque</option>
+                        <option id="Cash" value="Cash">Cash</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.PreferredMethod, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ID)
-
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.Name)
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name of the Charity" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group col-md-8">
-            @Html.LabelFor(model => model.OfficialName, "Official Name")
-            @Html.EditorFor(model => model.OfficialName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Registered name of the Charity" } })
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Notes)
+                <textarea name="Notes" id="Notes" class="form-control" rows="3" placeholder="What's special about this cause to you?">@Model.Notes</textarea>
+            </div>
+            <div class="card-footer">
+                <div class="form-group btn-toolbar justify-content-between">
+                    <div>
+                        @Html.ActionLink("Discard Changes", "Details", new { id = Model.ID }, htmlAttributes: new { @class = "btn btn-secondary" })
+                        <input type="submit" id="Save" value="Save Changes" class="btn btn-primary" disabled />
+                    </div>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">
+                        Delete Charity
+                    </button>
+                </div>
+            </div>
+        }
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.Type, "Category")
-            <select name="Type" id="Type" class="form-control" required>
-                <option hidden disabled value=null> -- Please Select --</option>
-                <option id="Educational Institution" value="Educational Institution">Educational Institution</option>
-                <option id="Youth Program" value="Youth Program">Youth Program</option>
-                <option id="Medical Organisation" value="Medical Organisation">Medical Organisation</option>
-                <option id="Community Service" value="Community Service">Community Service</option>
-                <option id="Poverty Relief" value="Poverty Relief">Poverty Relief</option>
-                <option id="Religious" value="Religious">Religious</option>
-                <option id="Other" value="Other">Other</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group col-md-8">
-            @Html.LabelFor(model => model.Details)
-            @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "What does this charity do?" } })
-        </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-4">
-            @Html.LabelFor(model => model.PreferredMethod, "Preferred Payment Method")
-            <select name="PreferredMethod" id="PreferredMethod" class="form-control">
-                <option selected hidden disabled value=null> -- Please Select --</option>
-                <option id="Card" value="Card">Card</option>
-                <option id="Bank Transfer" value="Bank Transfer">Bank Transfer</option>
-                <option id="Charity Voucher" value="Charity Voucher">Charity Voucher</option>
-                <option id="Charity Transfer" value="Charity Transfer">Charity Transfer</option>
-                <option id="Cheque" value="Cheque">Cheque</option>
-                <option id="Cash" value="Cash">Cash</option>
-            </select>
-            @Html.ValidationMessageFor(model => model.PreferredMethod, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Notes)
-        <textarea name="Notes" id="Notes" class="form-control" rows="3" placeholder="What's special about this cause to you?">@Model.Notes</textarea>
-    </div>
-
-    <div class="form-group btn-toolbar justify-content-between">
-        <div >
-            @Html.ActionLink("Discard Changes", "Details", new { id = Model.ID }, htmlAttributes: new { @class = "btn btn-secondary" })
-            <input type="submit" id="Save" value="Save Changes" class="btn btn-primary" disabled />
-        </div>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#staticBackdrop">
-            Delete Charity
-        </button>
-    </div>
-}
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -133,9 +136,9 @@
         }
     }
     UpdatePlaceholders();
-    document.getElementsByName("Type")[0].addEventListener('change', UpdatePlaceholders);
+    document.getElementById("editor").addEventListener('change', UpdatePlaceholders);
 
-    document.getElementsByTagName("Form")[0].addEventListener('input', function () {
+    document.getElementById("editor").addEventListener('input', function () {
         document.getElementById("Save").removeAttribute("disabled");
 
     });
