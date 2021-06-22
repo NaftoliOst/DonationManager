@@ -1,5 +1,4 @@
 ﻿@model DonationManager.Models.Charity
-
 @{
     ViewBag.Title = "Create";
 }
@@ -9,14 +8,9 @@
     <hr />
 }
 
-
-
 @using (Html.BeginForm("Create", "Charities"))
 {
-
     @Html.AntiForgeryToken()
-
-
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-row">
         <div class="form-group col-md-4">
@@ -42,7 +36,6 @@
                 <option value="Poverty Relief">Poverty Relief</option>
                 <option value="Religious">Religious</option>
                 <option value="Other">Other</option>
-
             </select>
             <input name="Type2" value="Other" list="TypeOther" class="form-control" id="Type2" hidden />
             <datalist id="TypeOther">
@@ -80,10 +73,6 @@
         @Html.LabelFor(model => model.Notes)
         <textarea name="Notes" id="Notes" class="form-control" rows="3" placeholder="What's special about this cause to you?"></textarea>
     </div>
-
-
-
-
     <div class="form-group modal-footer">
         @{ if (ViewData.ContainsKey("isModal"))
             {
@@ -93,15 +82,11 @@
             {
                 @Html.ActionLink("Discard", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" });
             }}
-
         <input type="submit" id="save" value="Save" class="btn btn-primary" onclick="saveClicked()" />
     </div>
 }
-
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
 }
 <script>
     function saveClicked() {
@@ -111,7 +96,6 @@
         var officialNameTextbox = document.getElementById("OfficialName");
         officialNameTextbox.value = this.value;
     });
-
     document.getElementsByName("Type")[0].addEventListener('change', function () {
         var detailsTextbox = document.getElementById("Details");
         var notesTextbox = document.getElementById("Notes");
@@ -139,6 +123,4 @@
     //    this.hidden = true;
     //    this.setAttribute(name, "Type2");
     //})
-
-
 </script>

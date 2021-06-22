@@ -1,24 +1,16 @@
 ﻿@model IEnumerable<DonationManager.Models.Charity>
-
 @{
     ViewBag.Title = "Index";
 }
 <div class="card shadow">
     <div class="card-header">
         <div class="btn-toolbar justify-content-between">
-            <h1>Charities</h1>
-            @*@using (Html.BeginForm())
-        {
-            @Html.TextBox("SearchTerm", null, new { @class = "form-control", @placeholder = "Search" });
-            <input type="submit" hidden />
-        }*@
+            <h1>Charities</h1>         
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                 New Charity
             </button>
         </div>
-    </div>
-    
-
+    </div>    
     <div class="card-body">
         <table class="table table-hover">
             <tr>
@@ -32,10 +24,8 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Type)
                 </th>
-
                 <th></th>
             </tr>
-
             @foreach (var item in Model)
             {
                 <tr onclick="detailsPage(@item.ID)" style="cursor: pointer">
@@ -64,7 +54,6 @@
         <br />
         <h5 class="text-muted text-center">Oops... looks like nothing matched your search.</h5>
         <h5 class="text-muted text-center">Try searching something else or create a new charity.</h5>
-
     }
 }
 <!-- Modal -->
@@ -84,8 +73,8 @@
                 </div>
             </div>
         </div>
-    </div></div>
-
+    </div>
+</div>
 
 <script>
     function detailsPage(itemID) {
