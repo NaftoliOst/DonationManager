@@ -1,42 +1,167 @@
 ﻿@model IEnumerable<DonationManager.Models.Donation>
-<div class="card shadow">
-    <div class="card-header"><h2>Recent Donations</h2></div>
-    <div class="card-body">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Amount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Method)
-                    
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Note)
-                </th>
-            </tr>
+@{
+    if (Model.Count() > 0)
+    {
+        var lastDonation = Model.First();
+        var firsDonation = Model.Last();
+        var average = (int)Model.Average(d => d.Amount);
+        var difference = (DateTime.Today - lastDonation.Date).TotalDays;
+        string lastDonated = "More than a year ago";
+        if (difference < 30)
+        {
+            lastDonated = "This month";
+        }
+        else if (difference < 60)
+        {
+            lastDonated = "1 Month ago";
+        }
+        else if (difference < 360)
+        {
+            lastDonated = (int)(difference / 30) + " Months ago";
+        }
+        else if (difference < 390)
+        {
+            lastDonated = "1 Year ago";
+        }
+        <div class="row">
+            <!--Last Donation Date-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2 lift">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Last Donated
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    @lastDonated
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-2x text-gray-300 fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Last Donation Amount-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2 lift">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Last Donation
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    £ @lastDonation.Amount
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-2x text-gray-300 fa-history"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Average Donation Amount-->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2 lift">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Average Donation
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    £ @average
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-2x text-gray-300 fa-chart-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Supporting Since -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-secondary shadow h-100 py-2 lift">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
+                                    Supporting Since
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    @firsDonation.Date.Year
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                      @item.Date.ToShortDateString()
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Method)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                </tr>
-            }
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-2x text-gray-300 fa-hand-holding-usd"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        </table>
-    </div>
-</div>
+        </div>
+        <br />
+        <div class="card shadow">
+            <div class="card-header"><h2>Recent Donations</h2></div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Amount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Method)
+
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Note)
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.Date.ToShortDateString()
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Method)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Note)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="alert alert-warning text-center shadow">
+
+            <h4 class="alert-heading">No donations yet.</h4>
+            <hr />
+            <p>
+                @Html.ActionLink("Click here", "create", "donation", new { @class="alert-link" }) to add a new donation.
+            </p>
+        </div>
+    }
+
+
+}

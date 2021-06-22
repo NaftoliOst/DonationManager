@@ -29,7 +29,8 @@ namespace DonationManager.Controllers
             var donations = from d in db.Donations select d;  
             donations = donations.Include(d => d.Charity).Include(d => d.Person);
             donations = donations.Where(d => d.Charity.ID.Equals(id));
-            donations = donations.OrderByDescending(d => d.Date);
+            donations = donations.OrderByDescending(d => d.Date);   
+            
             return PartialView(donations.ToList());
         }
 

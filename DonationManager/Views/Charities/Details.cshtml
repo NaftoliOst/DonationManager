@@ -17,9 +17,6 @@
             </div>
             <div>  @Html.ActionLink("New Donation", "create", "donations", new { }, new { @class = "btn btn-primary btn-lg btn-block" })</div>
         </div>
-
-
-
     </div>
     <div class="card-body">
         <div class="row">
@@ -84,97 +81,6 @@
     </div>
 </div>
 <br />
-@{ 
-    {
-        <div class="row">
-            <!--Last Donation Date-->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Last Donated
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    9 months ago
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-2x text-gray-300 fa-calendar-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Last Donation Amount-->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    Last Donation
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    £100
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-2x text-gray-300 fa-history"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Average Donation Amount-->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                    Average Donation
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    £150
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-2x text-gray-300 fa-chart-line"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Supporting Since -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-secondary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-secondary text-uppercase mb-1">
-                                    Supporting Since
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    2018
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-2x text-gray-300 fa-hand-holding-usd"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <br />
-        <div>
-            @{
-                Html.RenderAction("PartialIndex", "Donations", new { id = Model.ID });
-
-            }
-        </div>
-    }
+@{
+    Html.RenderAction("PartialIndex", "Donations", new { id = Model.ID });
 }

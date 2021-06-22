@@ -50,6 +50,26 @@ namespace DonationManager.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.hasDonations = false;
+            var donations = from d in db.Donations select d;
+            donations = donations.Include(d => d.Charity);
+            int count = donations.Where(d => d.Charity.ID == id).Count();
+            //donations = donations.Where(d => d.Charity.ID.Equals(id));
+            //donations = donations.OrderBy(d => d.Date);
+            
+            if (count >0)
+            
+            {
+                ViewBag.hasDonations = true;
+            //var lastDonation = donations.Last() ;
+            //    var fistDonation = donations.First();
+            //    ViewBag.lastDonationDate = lastDonation.Date;
+            //    ViewBag.lastDonationAmount = lastDonation.Amount.ToString();
+            //    ViewBag.firstDonationDate = fistDonation.Date;
+            //    ViewBag.average = donations.Average(amonunt => amonunt.Amount).ToString();
+            //    ViewBag.test2 = "At least this works";
+            }
+            
             return View(charity);
         }
 

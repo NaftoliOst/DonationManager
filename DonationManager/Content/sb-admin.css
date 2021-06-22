@@ -5913,7 +5913,7 @@ a.close.disabled {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1050;
+    z-index: 1050 !important;
     display: none;
     width: 100%;
     height: 100%;
@@ -11008,8 +11008,11 @@ a:focus {
     height: 4.375rem;
     margin-left: 104px;
     position: fixed !important;
-    z-index:1030;
+    z-index:100;
     width: -webkit-fill-available;
+}
+.topbar .modal{
+    z-index: 1050 !important;
 }
 
     .topbar #sidebarToggleTop {
@@ -12238,4 +12241,24 @@ body.sidebar-toggled footer.sticky-footer {
 }
 body.sidebar-toggled .topbar, body.sidebar-toggled #page-content {
     margin-left: 104px !important;
+}
+.lift {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    cursor:default;
+}
+
+    .lift:hover {
+        transform: translateY(-0.3333333333rem);
+        box-shadow: 0 0.5rem 2rem 0 rgba(33, 40, 50, 0.25);
+    }
+
+    .lift:active {
+        transform: none;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+    }
+
+.card.lift {
+    text-decoration: none;
+    color: inherit;
 }
