@@ -23,7 +23,13 @@
             @Html.EditorFor(model => model.OfficialName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Registered name of the Charity" } })
         </div>
     </div>
-
+    <div class="form-row">
+        <div class="form-group">
+            @Html.LabelFor(model => model.CharityNumber, "Charity Number")
+            @Html.EditorFor(model => model.CharityNumber, new {htmlAttributes = new { @class = "form-control", @placeholder = "Registered Charity Number" } } )
+            @Html.ValidationMessageFor(model => model.CharityNumber,"", new { @class = "text-danger" })
+        </div>
+    </div>
     <div class="form-row">
         <div class="form-group col-md-4">
             @Html.LabelFor(model => model.Type, "Category")

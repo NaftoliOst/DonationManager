@@ -172,6 +172,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106231001310_MovePersonConnection.cs" />
+    <Compile Include="Migrations\202106231001310_MovePersonConnection.designer.cs">
+      <DependentUpon>202106231001310_MovePersonConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106231109514_retry.cs" />
+    <Compile Include="Migrations\202106231109514_retry.designer.cs">
+      <DependentUpon>202106231109514_retry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cause.cs" />
@@ -441,6 +449,14 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202106231001310_MovePersonConnection.resx">
+      <DependentUpon>202106231001310_MovePersonConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106231109514_retry.resx">
+      <DependentUpon>202106231109514_retry.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

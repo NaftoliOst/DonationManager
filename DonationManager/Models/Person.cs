@@ -21,9 +21,7 @@ namespace DonationManager.Models
         public string Email { get; set; }
         public string Phone { get; set; }
 
-        public ICollection<Donation> Donations { get; set; }
+        public ICollection<Charity> Charities { get; set; }
 
-
-        
     }
 }

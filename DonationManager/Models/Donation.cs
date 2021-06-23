@@ -26,16 +26,9 @@ namespace DonationManager.Models
         public int CharityID { get; set; }
         public Charity Charity { get; set; }
 
-        [ForeignKey("Person")]
-        public int PersonID { get; set; }
-        public Person Person { get; set; }
-
+        
         //[ForeignKey("Cause")]
         //public int CauseID { get; set; }
         //public Cause Cause { get; set; }
-        
-
-
-
     }
 }

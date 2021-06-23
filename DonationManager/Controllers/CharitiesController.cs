@@ -62,7 +62,7 @@ namespace DonationManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,OfficialName,PreferredMethod,Details,Type,Notes")] Charity charity)
+        public ActionResult Create([Bind(Include = "ID,Name,OfficialName,CharityNumber,PreferredMethod,Details,Type,Notes")] Charity charity)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace DonationManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,OfficialName,PreferredMethod,Details,Type,Notes")] Charity charity)
+        public ActionResult Edit([Bind(Include = "ID,Name,OfficialName,PreferredMethod,CharityNumber,Details,Type,Notes")] Charity charity)
         {
             if (ModelState.IsValid)
             {

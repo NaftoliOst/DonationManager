@@ -18,10 +18,15 @@ namespace DonationManager.Models
         [Required]
         public string Type { get; set; }
 
+        public string CharityNumber { get; set; }
         public string OfficialName { get; set; }
         public string PreferredMethod { get; set; }
         public string Details { get; set; }
         public string Notes { get; set; }
+
+        [ForeignKey("Person")]
+        public int? PersonID { get; set; }
+        public Person Person { get; set; }
 
         public ICollection<Donation> Donations { get; set; }
 

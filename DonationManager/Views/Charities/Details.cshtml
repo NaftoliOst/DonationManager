@@ -8,17 +8,38 @@
         <div class="btn-toolbar justify-content-between">
             <div>
                 <h1 class="card-title">@Model.Name</h1>
-                @{
-                    if (Model.Name != Model.OfficialName)
-                    {
-                        <h4 class="card-subtitle">@Model.OfficialName</h4>
-                    }
-                }
             </div>
             <div>  @Html.ActionLink("New Donation", "create", "donations", new { }, new { @class = "btn btn-primary btn-lg btn-block" })</div>
         </div>
     </div>
     <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        Official Name:
+                    </dt>
+                    <dd>
+                        @Model.OfficialName
+                    </dd>
+                </dl>
+            </div>
+            @{
+                if (Model.CharityNumber != null)
+                {
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Registered Charity Number:
+                            </dt>
+                            <dd>
+                                @Model.CharityNumber
+                            </dd>
+                        </dl>
+                    </div>
+                }
+            }
+        </div>
         <div class="row">
             <div class="col-md-4">
                 <dl class="dl-horizontal">

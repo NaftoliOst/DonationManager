@@ -18,7 +18,7 @@ namespace DonationManager.Controllers
         // GET: Donations
         public ActionResult Index()
         {
-            var donations = db.Donations.Include(d => d.Charity).Include(d => d.Person);
+            var donations = db.Donations.Include(d => d.Charity);
             return View(donations.ToList());
         }
 
@@ -27,7 +27,7 @@ namespace DonationManager.Controllers
         public PartialViewResult PartialIndex(int id)
         {
             var donations = from d in db.Donations select d;  
-            donations = donations.Include(d => d.Charity).Include(d => d.Person);
+            donations = donations.Include(d => d.Charity);
             donations = donations.Where(d => d.Charity.ID.Equals(id));
             donations = donations.OrderByDescending(d => d.Date);               
             return PartialView(donations.ToList());
@@ -62,7 +62,7 @@ namespace DonationManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Date,Amount,Note,Method,CharityID,PersonID")] Donation donation)
+        public ActionResult Create([Bind(Include = "ID,Date,Amount,Note,Method,CharityID")] Donation donation)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace DonationManager.Controllers
             }
 
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
+            //ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
             return View(donation);
         }
 
@@ -89,7 +89,7 @@ namespace DonationManager.Controllers
                 return HttpNotFound();
             }
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
+            //ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
             return View(donation);
         }
 
@@ -98,7 +98,7 @@ namespace DonationManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Date,Amount,Note,Method,CharityID,PersonID")] Donation donation)
+        public ActionResult Edit([Bind(Include = "ID,Date,Amount,Note,Method,CharityID")] Donation donation)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace DonationManager.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
-            ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
+            //ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
             return View(donation);
         }
 
