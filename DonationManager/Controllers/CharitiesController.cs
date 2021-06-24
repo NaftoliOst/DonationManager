@@ -105,21 +105,6 @@ namespace DonationManager.Controllers
             return View(charity);
         }
 
-        // GET: Charities/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Charity charity = db.Charities.Find(id);
-            if (charity == null)
-            {
-                return HttpNotFound();
-            }
-            return View(charity);
-        }
-
         // POST: Charities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

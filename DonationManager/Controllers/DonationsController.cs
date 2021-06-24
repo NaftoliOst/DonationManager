@@ -34,21 +34,6 @@ namespace DonationManager.Controllers
             return PartialView(donations.ToList());
         }
 
-        // GET: Donations/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Donation donation = db.Donations.Find(id);
-            if (donation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(donation);
-        }
-
         // GET: Donations/Create
         public ActionResult Create(int? id)
         {
@@ -70,7 +55,7 @@ namespace DonationManager.Controllers
             {
                 db.Donations.Add(donation);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Charities", new { id = donation.CharityID});
             }
 
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
@@ -91,7 +76,6 @@ namespace DonationManager.Controllers
                 return HttpNotFound();
             }
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
-            //ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
             return View(donation);
         }
 
@@ -109,22 +93,6 @@ namespace DonationManager.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
-            //ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
-            return View(donation);
-        }
-
-        // GET: Donations/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Donation donation = db.Donations.Find(id);
-            if (donation == null)
-            {
-                return HttpNotFound();
-            }
             return View(donation);
         }
 
