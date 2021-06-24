@@ -26,6 +26,7 @@ namespace DonationManager.Controllers
         
         public PartialViewResult PartialIndex(int id)
         {
+            ViewBag.ID = id;
             var donations = from d in db.Donations select d;  
             donations = donations.Include(d => d.Charity);
             donations = donations.Where(d => d.Charity.ID.Equals(id));
@@ -49,9 +50,10 @@ namespace DonationManager.Controllers
         }
 
         // GET: Donations/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name");
+            ViewBag.ID = id;            
+            ViewBag.CharityID  = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name");            
             ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName");
             return View();
 

@@ -1,71 +1,110 @@
 ﻿@model DonationManager.Models.Donation
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "New Donation";
 }
-
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Donation</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Method, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Method, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Method, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            
-            @Html.LabelFor(model => model.CharityID, "CharityID", htmlAttributes: new { @class = "control-label col-md-2" })
-            
-            <div class="col-md-10">
-                @Html.DropDownList("CharityID", null , htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CharityID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-outline-primary" />
-            </div>
-        </div>
+<div class="card shadow">
+    <div class="card-header">
+        <h2>New Donation</h2>
     </div>
-}
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="container">
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CharityID, "To", htmlAttributes: new { @class = "control-label" })
+                                        @Html.DropDownList("CharityID", null, "-- Select Charity --", htmlAttributes: new { @class = "form-control", @id = "selectCharity" })
+                                        @Html.ValidationMessageFor(model => model.CharityID, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        
+                                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label" })
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">£</span>
+                                            </div>
+                                            <input type="text" required  onchange="updateAmount()" name="Amount" id="Amount" class="form-control" 
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"  />
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label" })
+                                        <input class="form-control text-box single-line input-validation-error"
+                                               data-val="true" data-val-date="The field Date must be a date." data-val-required="The Date field is required."
+                                               id="Date" name="Date" type="date" value="@DateTime.Today.ToString("yyyy-MM-dd")"
+                                               aria-describedby="Date-error" aria-invalid="true">
+                                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Method, htmlAttributes: new { @class = "control-label" })
+                                        <select name="Method" id="Method" class="form-control" required>
+                                            <option hidden disabled selected value=null> -- Please Select --</option>
+                                            <option value="Card">Card</option>
+                                            <option value="Bank Transfer">Bank Transfer</option>
+                                            <option value="Charity Voucher">Charity Voucher</option>
+                                            <option value="Charity Transfer">Charity Transfer</option>
+                                            <option value="Cheque">Cheque</option>
+                                            <option value="Cash">Cash</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.Method, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+                            <div class="row">
+                                <div class="form-group col">
+                                    @Html.LabelFor(model => model.Note)
+                                    <textarea name="Note" id="Note" class="form-control" rows="3" placeholder="Any notes to your future self about this donation..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="form-group col-10">
+                                    <input type="submit" value="Save" class="btn btn-block btn-primary" />
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class=" col-10">
+                                    <button onclick="window.history.back()" class="btn btn-block btn-secondary">Cancel</button>
+                                </div>
+                                <div class="col-1"></div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+            </div>
+        }        
+    </div>
 </div>
+<script>
+    var select = document.getElementById("selectCharity");
+    select.firstElementChild.value = null;
+    select.firstElementChild.disabled = true;
+    select.firstElementChild.hidden = true;
+    select.required = true;
+    select.value = null;
+    function updateAmount() {
+        var amount = document.getElementById("Amount");
+        amount.value = parseFloat(amount.value).toFixed(2);
+    }
+</script>
+@if (ViewBag.ID != null)
+{
+    <script>select.value = @ViewBag.ID;</script>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

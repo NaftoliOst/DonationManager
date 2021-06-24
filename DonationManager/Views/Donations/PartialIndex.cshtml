@@ -151,7 +151,7 @@
             <h4 class="alert-heading">No donations yet.</h4>
             <hr />
             <p>
-                @Html.ActionLink("Click here", "create", "donation", new { @class="alert-link" }) to add a new donation.
+                @Html.ActionLink("Click here", "create", "donations", new { id = ViewBag.ID } ,new { @class="alert-link" }) to add a new donation.
             </p>
         </div>
     }
