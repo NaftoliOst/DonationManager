@@ -23,30 +23,28 @@ namespace DonationManager.Controllers
         }
 
         // GET: Donations Parial Index
-        
+
         public PartialViewResult PartialIndex(int id)
         {
             ViewBag.ID = id;
-            var donations = from d in db.Donations select d;  
+            var donations = from d in db.Donations select d;
             donations = donations.Include(d => d.Charity);
             donations = donations.Where(d => d.Charity.ID.Equals(id));
-            donations = donations.OrderByDescending(d => d.Date);               
+            donations = donations.OrderByDescending(d => d.Date);
             return PartialView(donations.ToList());
         }
 
         // GET: Donations/Create
         public ActionResult Create(int? id)
         {
-            ViewBag.ID = id;            
-            ViewBag.CharityID  = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name");            
+            ViewBag.ID = id;
+            ViewBag.CharityID = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name");
             ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName");
             return View();
 
         }
 
         // POST: Donations/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,Date,Amount,Note,Method,CharityID")] Donation donation)
@@ -55,11 +53,10 @@ namespace DonationManager.Controllers
             {
                 db.Donations.Add(donation);
                 db.SaveChanges();
-                return RedirectToAction("Details", "Charities", new { id = donation.CharityID});
+                return RedirectToAction("Details", "Charities", new { id = donation.CharityID });
             }
 
-            ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
-            //ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName", donation.PersonID);
+            ViewBag.CharityID = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name", donation.CharityID);
             return View(donation);
         }
 
@@ -75,24 +72,22 @@ namespace DonationManager.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
+            ViewBag.CharityID = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name", donation.CharityID);
             return View(donation);
         }
 
         // POST: Donations/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Date,Amount,Note,Method,CharityID")] Donation donation)
-        {
+        public ActionResult Edit([Bind(Include = "ID,Date,Amount,Note,Method,CharityID,Charity")] Donation donation)
+        {            
             if (ModelState.IsValid)
             {
                 db.Entry(donation).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("details","charities", new { id = donation.CharityID });
             }
-            ViewBag.CharityID = new SelectList(db.Charities, "ID", "Name", donation.CharityID);
+            ViewBag.CharityID = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name", donation.CharityID);
             return View(donation);
         }
 

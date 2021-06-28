@@ -47,9 +47,7 @@
             @Html.DisplayFor(modelItem => item.Method)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            <a href="~/Donations/edit/@item.ID" class="btn btn-circle btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
         </td>
     </tr>
 }
