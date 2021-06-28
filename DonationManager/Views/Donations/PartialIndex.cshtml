@@ -7,7 +7,11 @@
         var average = (int)Model.Average(d => d.Amount);
         var difference = (DateTime.Today - lastDonation.Date).TotalDays;
         string lastDonated = "More than a year ago";
-        if (difference < 30)
+        if (difference == 0)
+        {
+            lastDonated = "Today";
+        }
+        else if (difference < 30)
         {
             lastDonated = "This month";
         }

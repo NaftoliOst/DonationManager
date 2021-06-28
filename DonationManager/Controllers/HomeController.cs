@@ -12,5 +12,17 @@ namespace DonationManager.Controllers
         {
             return View();
         }
+
+        // GET: Import Data
+        public ActionResult ImportData()
+        {
+            return View();
+        }
+
+        // GET: Reports
+        public ActionResult Reports()
+        {
+            return View();
+        }
     }
 }

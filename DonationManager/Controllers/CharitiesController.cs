@@ -29,11 +29,17 @@ namespace DonationManager.Controllers
                 || c.Notes.Contains(searchTerm));
                 if (charities.Count() == 0)
                 {
-                    ViewBag.noResults = true;
+                    return RedirectToAction("SearchResults");
                 }
             }            
             charities = charities.OrderBy(c => c.Name);
             return View(charities.ToList());
+        }
+
+        // GET: Search results (for empty search results)
+        public ActionResult SearchResults()
+        {
+            return View();
         }
 
         // GET: Charities/Details/5
