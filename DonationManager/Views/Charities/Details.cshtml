@@ -9,7 +9,9 @@
             <div>
                 <h1 class="card-title">@Model.Name</h1>
             </div>
-            <div>  @Html.ActionLink("New Donation", "create", "donations", new{ id = Model.ID  }, new { @class = "btn btn-primary btn-lg btn-block" })</div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newDonationModal">
+                New Donation
+            </button>
         </div>
     </div>
     <div class="card-body">
@@ -101,3 +103,24 @@
 @{
     Html.RenderAction("PartialIndex", "Donations", new { id = Model.ID });
 }
+<!-- Modal - newDonationModal -->
+<div class="modal fade" id="newDonationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="newDonationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newDonationModalLabel">New Donation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div class="container">
+                    @{
+                        Html.RenderAction("Create", "donations", new { isModal = true });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

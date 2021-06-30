@@ -5,12 +5,12 @@
 <div class="card shadow">
     <div class="card-header">
         <div class="btn-toolbar justify-content-between">
-            <h1>Charities</h1>         
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+            <h1>Charities</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newCharityModal">
                 New Charity
             </button>
         </div>
-    </div>    
+    </div>
     <div class="card-body">
         <table class="table table-hover">
             <tr>
@@ -39,7 +39,9 @@
                         @Html.DisplayFor(modelItem => item.Type)
                     </td>
                     <td>
-                        @Html.ActionLink("New Donation", "Create", "Donations", new { id = item.ID }, htmlAttributes: new { @class = "btn btn-outline-primary btn-sm" })
+                        <button type="button" onclick="detailsPageLinkEnabled = false" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#newDonationModal" data-id="@item.ID">
+                            New Donation
+                        </button>
                     </td>
                 </tr>
             }
@@ -47,12 +49,12 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal - newCharityModal -->
+<div class="modal fade" id="newCharityModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="newCharityModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">New Charity</h5>
+                <h5 class="modal-title" id="newCharityModalLabel">New Charity</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -67,8 +69,41 @@
     </div>
 </div>
 
+<!-- Modal - newDonationModal -->
+<div class="modal fade" id="newDonationModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="newDonationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newDonationModalLabel">New Donation</h5>
+                <button type="button" class="close" onclick="detailsPageLinkEnabled = true" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <br />
+                <div class="container">
+                    @{
+                        Html.RenderAction("Create", "donations", new { isModal = true });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    var detailsPageLinkEnabled = true;
     function detailsPage(itemID) {
-        window.location.assign("/charities/details/" + itemID);
+        if (detailsPageLinkEnabled) {
+            window.location.assign("/charities/details/" + itemID);
+        }
     }
+    $(document).ready(function () {
+        $('#newDonationModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            var id = button.data('id') 
+            var modal = $(this)
+            modal.find('#selectCharity').val(id)
+        })
+    });
 </script>

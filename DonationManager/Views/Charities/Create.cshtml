@@ -81,6 +81,7 @@
         <textarea name="Notes" id="Notes" class="form-control" rows="3" placeholder="What's special about this cause to you?"></textarea>
     </div>
     <div class="form-group modal-footer">
+        <input type="submit" id="save" value="Save" class="btn btn-primary" onclick="saveClicked()" />
         @{ if (ViewData.ContainsKey("isModal"))
             {
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -89,7 +90,6 @@
             {
                 @Html.ActionLink("Discard", "Index", null, htmlAttributes: new { @class = "btn btn-secondary" });
             }}
-        <input type="submit" id="save" value="Save" class="btn btn-primary" onclick="saveClicked()" />
     </div>
 }
 @section Scripts {

@@ -35,12 +35,12 @@ namespace DonationManager.Controllers
         }
 
         // GET: Donations/Create
-        public ActionResult Create(int? id)
+        public PartialViewResult Create(bool isModal, int? id)
         {
             ViewBag.ID = id;
             ViewBag.CharityID = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name");
             ViewBag.PersonID = new SelectList(db.People, "ID", "FirstName");
-            return View();
+            return PartialView();
 
         }
 

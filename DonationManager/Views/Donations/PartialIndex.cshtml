@@ -159,7 +159,9 @@
             <h4 class="alert-heading">No donations yet.</h4>
             <hr />
             <p>
-                @Html.ActionLink("Click here", "create", "donations", new { id = ViewBag.ID } ,new { @class="alert-link" }) to add a new donation.
+                <a role="button" class="alert-link text-nowrap" data-toggle="modal" data-target="#newDonationModal">
+                    Click here to add a new donation.
+                </a>              
             </p>
         </div>
     }
