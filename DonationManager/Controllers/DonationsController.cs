@@ -98,8 +98,8 @@ namespace DonationManager.Controllers
         {
             Donation donation = db.Donations.Find(id);
             db.Donations.Remove(donation);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            db.SaveChanges();            
+            return RedirectToAction("Details","Charities",new { id = donation.CharityID });
         }
 
         protected override void Dispose(bool disposing)
