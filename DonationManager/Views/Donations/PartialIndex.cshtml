@@ -1,9 +1,17 @@
 ﻿@model IEnumerable<DonationManager.Models.Donation>
 @{
+    AjaxOptions ajaxEditModal = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "EditModalBody"
+    };    
+}
+@{
     if (Model.Count() > 0)
     {
         var lastDonation = Model.First();
-        var firsDonation = Model.Last();
+        var firstDonation = Model.Last();
         var average = (int)Model.Average(d => d.Amount);
         var difference = (DateTime.Today - lastDonation.Date).TotalDays;
         string lastDonated = "More than a year ago";
@@ -98,7 +106,7 @@
                                     Supporting Since
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    @firsDonation.Date.Year
+                                    @firstDonation.Date.Year
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -133,7 +141,7 @@
                     {
                         <tr>
                             <td>
-                                @item.Date.ToShortDateString()
+                                @item.Date.ToString("d MMM yyyy")
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
@@ -145,7 +153,14 @@
                                 @Html.DisplayFor(modelItem => item.Note)
                             </td>
                             <td>
-                                <a href="~/Donations/edit/@item.ID" class="btn btn-circle btn-sm btn-outline-warning"><i class="fas fa-pencil-alt"></i></a>
+                                @using (Ajax.BeginForm("OpenEditModal", ajaxEditModal))
+                                {
+                                    <input type="text" value="@item.ID" hidden readonly name="id" />
+                                    <button type="submit" class="btn btn-circle btn-sm btn-outline-warning" data-toggle="modal" data-target="#EditModal">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button>
+                                }
+
                             </td>
                         </tr>
                     }
@@ -161,8 +176,69 @@
             <p>
                 <a role="button" class="alert-link text-nowrap" data-toggle="modal" data-target="#newDonationModal">
                     Click here to add a new donation.
-                </a>              
+                </a>
             </p>
         </div>
     }
 }
+<!-- Edit Modal -->
+<div class="modal fade" id="EditModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="EditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditModalLabel">Edit Donation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="EditModalBody">
+                <div class="text-center">
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade"  id="DeleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="DeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-danger">
+                <h5 class="modal-title" id="DeleteModalLabel">Delete Donation?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="DeleteModalBody">
+                <div class="text-center">
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#EditModal').on('hidden.bs.modal', function (event) { reset("#EditModalBody"); });
+    $('#DeleteModal').on('hidden.bs.modal', function (event) { reset("#DeleteModalBody"); });
+    $('#DeleteModal').on('show.bs.modal', function (event) {
+        $('#EditModal').modal('hide');
+    });
+    function reset (id) {
+        var loading = document.createElement("div");
+        loading.className = "text-center";
+        var loadingChildDiv = document.createElement("div");
+        loadingChildDiv.className = "spinner-border text-secondary";
+        var loadingSpan = document.createElement("span");
+        loadingSpan.className = "sr-only";
+        var modalBody = document.querySelector(id);
+        modalBody.firstElementChild.remove();
+        modalBody.appendChild(loading);
+        loading.appendChild(loadingChildDiv);
+        loadingChildDiv.appendChild(loadingSpan);
+        loadingSpan.innerHTML = "Loading...";
+    }
+</script>

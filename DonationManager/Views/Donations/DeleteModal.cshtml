@@ -1,0 +1,42 @@
+﻿@model DonationManager.Models.Donation
+
+<div>
+    Are you sure you want to delete this donation?
+    <br /><br />
+    <table class="table">
+        <tr>
+            <th>
+                Charity
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Method
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Model.Charity.Name
+            <td>
+                @Model.Date.ToString("d MMM yyyy")
+            </td>
+            <td>
+                @Model.Amount
+            </td>
+            <td>
+                @Model.Method
+            </td>
+        </tr>
+    </table>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        @using (Html.BeginForm("Delete", "donations", new { id = Model.ID }))
+        {@Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    }
+    </div>
+</div>

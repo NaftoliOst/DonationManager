@@ -91,6 +91,33 @@ namespace DonationManager.Controllers
             return View(donation);
         }
 
+        // GET: AJAX Edit modal
+        public ActionResult OpenEditModal(string id)
+        {
+            Donation donation = db.Donations.Find(int.Parse(id));
+            if (donation == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.CharityID = new SelectList(db.Charities.OrderBy(c => c.Name), "ID", "Name", donation.CharityID);
+            return PartialView("EditModal", donation);
+        }
+
+        // GET: AJAX Delete modal
+        public ActionResult OpenDeleteModal(string id)
+        {
+            int Id = int.Parse(id);
+            var donation = from d in db.Donations select d;
+            donation = donation.Include(d => d.Charity);
+            donation = donation.Where(d => d.ID.Equals(Id));
+            var donationList = donation.ToList();           
+            if (donation == null)
+            {
+                return HttpNotFound();
+            }            
+            return PartialView("DeleteModal", donationList.ElementAt(0));
+        }
+
         // POST: Donations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
