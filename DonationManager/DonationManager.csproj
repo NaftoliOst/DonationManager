@@ -430,7 +430,6 @@
     <Content Include="Views\Charities\SearchResults.cshtml" />
     <Content Include="Views\Home\ImportData.cshtml" />
     <Content Include="Views\Home\Reports.cshtml" />
-    <Content Include="Views\Donations\_EditDonation.cshtml" />
     <Content Include="Views\Donations\EditModal.cshtml" />
     <Content Include="Views\Donations\DeleteModal.cshtml" />
   </ItemGroup>
